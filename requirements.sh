@@ -21,30 +21,31 @@ BLUE='\033[0;34m'
 LINE_COUNT="THIS IS JUST A PHRASE TO GENREATE THE LINE SEPERATOR DURING EXECUTION"
 LINE_SEPERATOR="-"
 
+
 #_______ VAULT.PY SETUP ____#
-# create file [Restaurant/vault.py]
-echo -e "${BLUE}creating file${NOCOLOR} ${GREEN}[vault.py]${NOCOLOR} ${BLUE}in folder${NOCOLOR} ${GREEN}[Restaurant]${NOCOLOR}"
-touch Restaurant/vault.py
-echo -e "${BLUE}file${NOCOLOR} ${GREEN}[Restaurant/vault.py]${NOCOLOR} ${BLUE}created${NOCOLOR}"
+# create file [recipes/vault.py]
+echo -e "${BLUE}creating file${NOCOLOR} ${GREEN}[vault.py]${NOCOLOR} ${BLUE}in folder${NOCOLOR} ${GREEN}recipes${NOCOLOR}"
+touch recipes/vault.py
+echo -e "${BLUE}file${NOCOLOR} ${GREEN}[recipes/vault.py]${NOCOLOR} ${BLUE}created${NOCOLOR}"
 echo "\n"
 echo -e "${LINE_COUNT//?/$LINE_SEPERATOR}\n${LINE_COUNT//?/$LINE_SEPERATOR}"
 echo "\n"
 
 # set neccesary variables in vault.py
-echo -e "${BLUE}setting${NOCOLOR} ${ORANGE}[EMAIL_HOST_USER]${NOCOLOR} ${BLUE}variable in${NOCOLOR} ${GREEN}vaulty.py${NOCOLOR}"
-echo -e "EMAIL_HOST_USER = None" >> Restaurant/vault.py
+echo -e "${BLUE}setting${NOCOLOR} ${ORANGE}[EMAIL_HOST_USER]${NOCOLOR} ${BLUE}variable in${NOCOLOR} ${GREEN}vault.py${NOCOLOR}"
+echo -e "EMAIL_HOST_USER = None" >> recipes/vault.py
 echo -e "${ORANGE}[EMAIL_HOST_USER]${NOCOLOR} ${BLUE}variable set${NOCOLOR}"
 echo "\n"
 echo -e "${LINE_COUNT//?/$LINE_SEPERATOR}\n${LINE_COUNT//?/$LINE_SEPERATOR}"
 echo "\n"
 
-echo -e "${BLUE}setting${NOCOLOR} ${ORANGE}[EMAIL_HOST_PASSWORD]${NOCOLOR} ${BLUE}variable in${NOCOLOR} ${GREEN}vaulty.py${NOCOLOR}"
-echo -e "EMAIL_HOST_PASSWORD = None" >> Restaurant/vault.py
+echo -e "${BLUE}setting${NOCOLOR} ${ORANGE}[EMAIL_HOST_PASSWORD]${NOCOLOR} ${BLUE}variable in${NOCOLOR} ${GREEN}vault.py${NOCOLOR}"
+echo -e "EMAIL_HOST_PASSWORD = None" >> recipes/vault.py
 echo -e "${ORANGE}[EMAIL_HOST_PASSWORD]${NOCOLOR} ${BLUE}variable set${NOCOLOR}"
 echo "\n"
 
-echo -e "${BLUE}setting${NOCOLOR} ${ORANGE}[DEFAULT_FROM_EMAIL]${NOCOLOR} ${BLUE}variable in${NOCOLOR} ${GREEN}vaulty.py${NOCOLOR}"
-echo -e "DEFAULT_FROM_EMAIL = None" >> Restaurant/vault.py
+echo -e "${BLUE}setting${NOCOLOR} ${ORANGE}[DEFAULT_FROM_EMAIL]${NOCOLOR} ${BLUE}variable in${NOCOLOR} ${GREEN}vault.py${NOCOLOR}"
+echo -e "DEFAULT_FROM_EMAIL = None" >> recipes/vault.py
 echo -e "${ORANGE}[DEFAULT_FROM_EMAIL]${NOCOLOR} ${BLUE}variable set${NOCOLOR}"
 echo "\n"
 echo -e "${LINE_COUNT//?/$LINE_SEPERATOR}\n${LINE_COUNT//?/$LINE_SEPERATOR}"
@@ -54,14 +55,14 @@ echo "\n"
 
 #___ SETUP PYTHON3 VIRTUALENV __#
 echo -e "${BLUE}creating virtual environment named${NOCOLOR} ${ORANGE}[venv]${NOCOLOR}"
-#python3 -m venv venv
-echo -e "${BLUE}virtual environment ${ORANGE}[venv]${NOCOLOR} created${NOCOLOR}"
+python3 -m venv venv
+echo -e "${BLUE}virtual environment ${ORANGE}[venv]${NOCOLOR} created"
 echo "\n"
 echo -e "${LINE_COUNT//?/$LINE_SEPERATOR}\n${LINE_COUNT//?/$LINE_SEPERATOR}"
 echo "\n"
 
 echo -e "${BLUE}initiating virtual environment${NOCOLOR} ${ORANGE}[venv]"
-#source venv/bin/activate
+source venv/bin/activate
 echo -e "${BLUE}virtual environment initiated${NOCOLOR}"
 echo "\n"
 echo -e "${LINE_COUNT//?/$LINE_SEPERATOR}\n${LINE_COUNT//?/$LINE_SEPERATOR}"
@@ -86,18 +87,18 @@ echo -e "${LINE_COUNT//?/$LINE_SEPERATOR}\n${LINE_COUNT//?/$LINE_SEPERATOR}"
 echo "\n"
 
 
-#____ CREATE MISSING MIGRATION FOLDERS --input [app_name]--- ____#
+#____ CREATE MISSING MIGRATION FOLDERS ____#
 echo -e "${BLUE}creating${NOCOLOR} ${GREEN}migrations${NOCOLOR} ${BLUE}folders for django${NOCOLOR} ${GREEN}[APP_NAME]${NOCOLOR} ${BLUE}apps${NOCOLOR}"
-mkdir [APP_NAME]/migrations
-touch [APP_NAME]/migrations/__init__.py
+mkdir account/migrations
+touch account/migrations/__init__.py
 echo -e "${GREEN}migrations${NOCOLOR} ${BLUE}folder in${NOCOLOR} ${GREEN}[APP_NAME]${NOCOLOR} ${BLUE}app created${NOCOLOR}"
 echo "\n"
 echo -e "${LINE_COUNT//?/$LINE_SEPERATOR}\n${LINE_COUNT//?/$LINE_SEPERATOR}"
 echo "\n"
 
 echo -e "${BLUE}creating${NOCOLOR} ${GREEN}migrations${NOCOLOR} ${BLUE}folders for django${NOCOLOR} ${GREEN}[APP_NAME]${NOCOLOR} ${BLUE}apps${NOCOLOR}"
-mkdir [APP_NAME]/migrations
-touch [APP_NAME]/migrations/__init__.py
+mkdir blog/migrations
+touch blog/migrations/__init__.py
 echo -e "${BLUE}migrations${NOCOLOR} ${BLUE}folder in ${GREEN}[APP_NAME]${NOCOLOR} ${BLUE}app created${NOCOLOR}"
 echo "\n"
 echo -e "${LINE_COUNT//?/$LINE_SEPERATOR}\n${LINE_COUNT//?/$LINE_SEPERATOR}"

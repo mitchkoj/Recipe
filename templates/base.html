@@ -1,0 +1,63 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+   <head>
+    <meta charset="utf-8">
+    <title>{% block title %} Recipe.FoodInc {% endblock %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="restaurant, menu, healthy, food">
+    <meta name="description" content="helping everybody eat good">
+    <meta name="author" content="Le koj">
+    <link rel="icon" type="image/png" href="" sizes="">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    {% block link %}
+    {% endblock link %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/standard.css' %}">
+    {% block style %}
+    {% endblock style %}
+  </head>
+  <body>
+    <!--- NAVIGATION SETTINGS --->
+    {% block nav-bar %}
+    <div class="site-header"> <!--- 2-rows-1-column --->
+
+      <!--- LOGO SECTION --->
+      <div class="site-logo-wrapper" >
+        <a class="back-home-link" href="{% url 'gate_keeper' %}">
+          <img class="logo-image" src="{% static 'images/logo.jpg' %}" alt="foodinc logo" />
+        </a>
+      </div> <!--- row-1 --->
+      <!--- END LOGO SECTION --->
+
+      <!--- NAVIGATION MENU SECTION --->
+      <div class="site-menu-wrapper">
+        <ul class="site-menu-list" > <!--- row-2 --->
+        </ul>
+      </div>
+      <!--- END NAVIGATION MENU SECTION --->
+
+    </div>
+    {% endblock nav-bar %}
+     <!--- END NAVIGATION SETTINGS --->
+
+    <main>
+        {% block content %}
+        {% endblock content %}
+    </main>
+
+    {% block footer %}
+    {% endblock footer %}
+  <!--- SITE-SCRIPTS --->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    {% include 'session_security/all.html'%}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+    <script>
+      {% block script %}
+
+      {% endblock script %}
+    </script>
+  </body>
+</html>

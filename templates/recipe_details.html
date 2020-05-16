@@ -1,0 +1,227 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<h1 id="title-h5">{{ recipe.title }}</h1>
+<div class="row">
+    <div class="col-md-8 video-wrapper">
+      <video width="100%" height="auto" controls>
+        <source src="/{{ project.video.url }}" alt="" width="100%" type="video/mp4">
+        <source src="/{{ project.video.url }}" alt="" width="100%" type="video/ogg">
+      </video>
+      <!---
+        <img src="/{{ project.image.url }}" alt="" width="100%">
+      --->
+    </div>
+    <div class="col-md-4 content-section">
+        <h5>Description:</h5>
+        <p>{{ recipe.description }}</p>
+        <br>
+        <h5>Items used:</h5>
+        <p>{{ recipe.items }}</p>
+    </div>
+</div>
+
+<h3 class="comment-title">COMMENTS</h3>
+<div class="comment-section">
+
+  <div class="form_wrapper edit-page">
+
+    <form action="/projects/{{ project.pk }}/" method="post">
+        {% csrf_token %}
+        {% for field in form.visible_fields %}
+
+          {% if field.errors %}
+            <ul>
+              {% for error in field.errors %}
+                <li>{{ error }}</li>
+              {% endfor %}
+            </ul>
+          {% endif %}
+
+          {{ field }}
+          {% if field.help_text %}
+            <br>{{ field.help_text }}
+          {% endif %}
+        {% endfor %}
+        <button class="btn" type="btn" type="submit"> <span> Submit</span> </button>
+    </form>
+  </div>
+
+  <!---
+  <h3 class="comment-title" style="margin-left: 10px">Comments:</h3>
+  --->
+  <hr>
+  {% for comment in comments %}
+  <div class="comments-card">
+    <p class="date-p">
+        On {{comment.created_on.date }}&nbsp;
+    </p>
+    <p class="body-p">{{ comment.body }}</p>
+    <p class="author-p">- {{ comment.author }} </p>
+
+  </div>
+  {% endfor %}
+
+</div>
+
+<style media="screen">
+  .comment-title {
+    margin: 50px 50px 30px 0px;
+    color: #222222;
+  }
+
+  .comment-section {
+    width: 100%;
+    margin: 0;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+    height: auto;
+    background: #363636;
+  }
+
+  div.form_wrapper {
+    width: calc(300px + 10vw);
+  }
+
+
+  input[type=text]{
+    width: calc(200px + 2vw);
+    padding: 12px 20px;
+
+    margin-left: 10px;
+    margin-top: 10px;
+
+    display: inline-block;
+    border-top-style: none;
+    border-left-style: none;
+    border-right-style: none;
+    border-bottom: 1px solid blue;
+    color: #fff;
+
+    background: #363636;
+
+  }
+
+  textarea {
+    width: calc(200px + 40vw);
+    padding: 12px 20px;
+
+    margin-left: 10px;
+    margin-top: 20px;
+
+    display: inline-block;
+    border-top-style: none;
+    border-left-style: none;
+    border-right-style: none;
+    border: 1px solid blue;
+    color: #fff;
+
+    background: #363636;
+  }
+
+  .btn {
+    display: inline-block;
+    border-radius: 4px;
+    background-color: #2976f5;
+    border: none;
+    color: #fff;
+    text-align: center;
+    font-size: 16px;
+    padding: 20px;
+    width: 200px;
+    transition: all 0.5s;
+    cursor: pointer;
+    margin: 10px;
+
+    vertical-align: middle;
+  }
+
+  .btn span {
+    cursor: pointer;
+    display: inline-block;
+    position: relative;
+    transition: 0.5s;
+  }
+
+  .btn span:after {
+    content: '\00bb';
+    position: absolute;
+    opacity: 0;
+    top: 0;
+    right: -20px;
+    transition:0.3s;
+    color: #fff;
+  }
+
+  .btn:hover span {
+    padding-right: 25px;
+    color: #fff;
+  }
+
+  .btn:hover span:after {
+    opacity: 1;
+    right: 0;
+  }
+
+  .comments-card {
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+    border-radius: 5px;
+    margin: 10px;
+    margin-bottom: 30px;
+    padding: 10px;
+
+    width: calc(200px + 40vw);
+
+    color: #fff;
+  }
+
+  .author-p {
+    color: #4C4CFF;
+    text-transform: capitalize;
+    letter-spacing: 0.05em;
+  }
+
+  .body-p {
+    font-weight: lighter;
+    letter-spacing: 0.05em;
+  }
+
+  .date-p {
+    font-weight: lighter;
+    font-size: 12px;
+    color: #ccc;
+    letter-spacing: 0.05em;
+  }
+
+  .content-section p{
+    font-weight: lighter;
+    letter-spacing: 0.02em;
+  }
+
+  .content-section h5{
+    font-weight: bold;
+    font-size: 1.2em;
+    letter-spacing: 0.03em;
+    color: #2976f5;
+  }
+
+  #title-h5 {
+    text-transform: uppercase;
+    margin-top: 20px;
+    margin-bottom: 10px;
+
+    font-size: 1.8em;
+    color: #222222;
+  }
+
+  .navbar-light .navbar-toggler {
+    border-color: #fff;
+  }
+
+
+
+</style>
+
+{% endblock %}

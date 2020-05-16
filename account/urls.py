@@ -1,4 +1,4 @@
-"""recipes URL Configuration
+"""multiusers URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/3.0/topics/http/urls/
@@ -13,17 +13,19 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-from django.contrib import admin
-from django.urls import path, include
+
+from django.urls import path
+
+# ___ .views | VIEWS ___#
+from . import views
 
 #___ django.views.generic.base | BASE ___#
 from django.views.generic.base import TemplateView
 
 urlpatterns = [
-    path('', include('blog.urls')),
-    path('admin/', admin.site.urls),
-    path('accounts/', include('account.urls')),
-    path('accounts/', include('django.contrib.auth.urls')),
-    path('recipe/', include('blog.urls')),
-    path('session_security/', include('session_security.urls')),
+    path('welcome/', views.gate_keeper, name='gate_keeper'),
+    path('account/signup', views.account_signup, name='account_signup'),
+    path('email_reconfirmation/', views.reconfirm_email, name='reconfirm_email'),
+    path('activate/P<uidb64>/P<token>/', views.activate_user, name='activate'),
+    #path('check_ct/', views.user_gains_perms, name='check_ct')
 ]

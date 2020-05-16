@@ -20,14 +20,34 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'zg%!*#h!&a-^$*f*cle)0dcj-ln3-ysqzy+5=-e44-o*^x3_+t'
+try:
+    from .vault import SECRET_KEY
+    from . import vault
+except:
+    from django.core.management.utils import get_random_secret_key
+    key = get_random_secret_key()
+
+    # write key to file
+    f = open("./account/vault.py", "a")
+    f.write(f"SECRET_KEY = '{key}'")
+    f.close()
+
+    from . import vault
+
+SECRET_KEY = vault.SECRET_KEY
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
 ALLOWED_HOSTS = []
 
-
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+EMAIL_HOST = vault.EMAIL_HOST
+EMAIL_PORT = 587
+EMAIL_HOST_USER = vault.EMAIL_HOST_USER
+EMAIL_HOST_PASSWORD = vault.EMAIL_HOST_PASSWORD
+EMAIL_USE_TLS = True
+DEFAULT_FROM_EMAIL = vault.DEFAULT_FROM_EMAIL
 # Application definition
 
 INSTALLED_APPS = [
@@ -38,6 +58,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'blog',
+    'account',
+    'session_security',
 ]
 
 MIDDLEWARE = [
@@ -46,6 +68,7 @@ MIDDLEWARE = [
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'session_security.middleware.SessionSecurityMiddleware', # django-session-security app
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
@@ -55,7 +78,7 @@ ROOT_URLCONF = 'recipes.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -119,3 +142,19 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
+
+STATIC_ROOT = 'static'
+
+#STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
+
+
+AUTH_USER_MODEL = 'account.CustomUser'
+
+#___ login and logout redirect ___#
+LOGIN_REDIRECT_URL = 'gate_keeper'
+LOGOUT_REDIRECT_URL = 'gate_keeper'
+
+#___ Sessions Settings ____#
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True
+SESSION_SECURITY_WARN_AFTER = 540
+SESSION_SECURITY_EXPIRE_AFTER = 600
