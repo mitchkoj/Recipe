@@ -3,3 +3,6 @@ migrations/
 __pycache__
 db.sqlite3
 vault.py
+admin/
+session_security/
+.DS_Store

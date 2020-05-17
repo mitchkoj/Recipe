@@ -20,12 +20,12 @@
   <body>
     <!--- NAVIGATION SETTINGS --->
     {% block nav-bar %}
-    <div class="site-header"> <!--- 2-rows-1-column --->
+    <div class="site-nav"> <!--- 2-rows-1-column --->
 
       <!--- LOGO SECTION --->
       <div class="site-logo-wrapper" >
         <a class="back-home-link" href="{% url 'gate_keeper' %}">
-          <img class="logo-image" src="{% static 'images/logo.jpg' %}" alt="foodinc logo" />
+          <img class="logo-image" src="{% static 'images/olive_oil_1.jpg' %}" alt="foodinc logo" />
         </a>
       </div> <!--- row-1 --->
       <!--- END LOGO SECTION --->
@@ -41,7 +41,7 @@
     {% endblock nav-bar %}
      <!--- END NAVIGATION SETTINGS --->
 
-    <main>
+    <main class="container">
         {% block content %}
         {% endblock content %}
     </main>

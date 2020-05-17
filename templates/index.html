@@ -3,19 +3,23 @@
 
 {% block content %}
 
-<h1 id="page-title">RECIPES</h1>
+<h1  class="row page-title" >RECIPES</h1>
 <div class="row">
   {% for recipe in recipes %}
       <div class="col-md-4">
-          <div class="card mb-2 project-card">
-              <img class="card-img-top" src="/{{ project.image.url }}">
+          <div class="card mb-2">
+              <img class="card-img-top" src="/{{ recipe.image.url }}">
               <div class="card-body">
                   <h5 class="card-title">{{ recipe.title }}</h5>
-                  <p class="card-text">{{ recipe.description }}</p>
-                  <a href="{% url 'project_detail' project.pk %}"
+                  <h5 class="card-author">by {{ recipe.user.first_name }} {{ recipe.user.last_name }}</h5>
+                  <p class="card-text">{{ recipe.description | truncatewords:30 }}</p>
+                  <a href="{% url 'recipe_detail' recipe.recipe_id %}" class="btn-anchor"> <button class="btn"> <span> View </span> </button> </a>
+                  <!---
+                  <a href="{% url 'recipe_detail' recipe.recipe_id %}"
                      class="btn btn-primary">
                       <span>View</span>
                   </a>
+                  --->
               </div>
           </div>
       </div>
@@ -43,48 +47,6 @@
     font-weight: lighter;
   }
 
-  .btn-primary {
-    display: inline-block;
-    border-radius: 4px;
-    background-color: #2976f5;
-    border: none;
-    color: #fff;
-    text-align: center;
-    font-size: 16px;
-    padding: 10px;
-    transition: all 0.5s;
-    width: 90px;
-    cursor: pointer;
-
-    vertical-align: middle;
-  }
-
-  .btn-primary span {
-    cursor: pointer;
-    display: inline-block;
-    position: relative;
-    transition: 0.5s;
-  }
-
-  .btn-primary span:after {
-    content: '\00bb';
-    position: absolute;
-    opacity: 0;
-    top: 0;
-    right: -20px;
-    transition:0.3s;
-    color: #fff;
-  }
-
-  .btn-primary:hover span {
-    padding-right: 25px;
-    color: #fff;
-  }
-
-  .btn-primary:hover span:after {
-    opacity: 1;
-    right: 0;
-  }
 
 </style>
 

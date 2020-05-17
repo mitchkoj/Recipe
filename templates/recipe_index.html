@@ -8,11 +8,11 @@
   {% for recipe in recipes %}
       <div class="col-md-4">
           <div class="card mb-2 project-card">
-              <img class="card-img-top" src="/{{ project.image.url }}">
+              <img class="card-img-top" src="/{{ recipe.image.url }}">
               <div class="card-body">
                   <h5 class="card-title">{{ recipe.title }}</h5>
-                  <p class="card-text">{{ recipe.description }}</p>
-                  <a href="{% url 'project_detail' project.pk %}"
+                  <p class="card-text">{{ recipe.description | truncatewords:2 }}</p>
+                  <a href="{% url 'recipe_detail' recipe.recipe_id %}"
                      class="btn btn-primary">
                       <span>View</span>
                   </a>

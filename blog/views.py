@@ -2,7 +2,7 @@ from django.shortcuts import render
 
 from .forms import CommentForm
 from .models import Comment, Recipe, IngredientImage, Ingredient
-from .models import RecipeVideo 
+from .models import RecipeVideo
 
 
 def render_index(request):
@@ -50,7 +50,7 @@ def recipe_detail(request, pk):
                         "comments": comments,
                         "form": form
                         }
-            return render(request, 'recipe_detail.html', context)
+            return render(request, 'recipe_details.html', context)
 
         else:
             context = {
@@ -58,11 +58,11 @@ def recipe_detail(request, pk):
                         "comments": comments,
                         "form": form
                        }
-            return render(request, 'recipe_detail.html', context)
+            return render(request, 'recipe_details.html', context)
     else:
         context = {
                     "recipe": recipe,
                     "comments": comments,
                     "form": form
                     }
-        return render(request, 'recipe_detail.html', context)
+        return render(request, 'recipe_details.html', context)
