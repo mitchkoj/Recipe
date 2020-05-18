@@ -11,7 +11,7 @@
               <img class="card-img-top" src="/{{ recipe.image.url }}">
               <div class="card-body">
                   <h5 class="card-title">{{ recipe.title }}</h5>
-                  <h5 class="card-author">by {{ recipe.user.first_name }} {{ recipe.user.last_name }}</h5>
+                  <h5 class="card-author">post by {{ recipe.user.first_name }} {{ recipe.user.last_name }}</h5>
                   <p class="card-text">{{ recipe.description | truncatewords:30 }}</p>
                   <a href="{% url 'recipe_detail' recipe.recipe_id %}" class="btn-anchor"> <button class="btn"> <span> View </span> </button> </a>
                   <!---

@@ -2,7 +2,7 @@ from django.shortcuts import render
 
 from .forms import CommentForm
 from .models import Comment, Recipe, IngredientImage, Ingredient
-from .models import RecipeVideo
+from .models import RecipeVideo, RecipeInstructions
 
 
 def render_index(request):
@@ -31,7 +31,11 @@ def recipe_detail(request, pk):
 
     # get the project with primary key
     recipe = Recipe.objects.get(pk=pk)
+    ingredients = Ingredient.objects.filter(recipe=recipe)
+    instructions = RecipeInstructions.objects.filter(recipe=recipe)
+    #images = IngredientImage.objects.filter(ingredient=ingredient)
     comments = Comment.objects.filter(recipe=recipe)
+    video = RecipeVideo.objects.filter(recipe=recipe)[0]
 
     form = CommentForm()
     if request.method == 'POST':
@@ -47,7 +51,10 @@ def recipe_detail(request, pk):
             form = CommentForm()
             context = {
                         "recipe": recipe,
+                        "ingredients": ingredients,
+                        "instructions": instructions,
                         "comments": comments,
+                        "video": video,
                         "form": form
                         }
             return render(request, 'recipe_details.html', context)
@@ -55,14 +62,20 @@ def recipe_detail(request, pk):
         else:
             context = {
                         "recipe": recipe,
+                        "ingredients": ingredients,
+                        "instructions": instructions,
                         "comments": comments,
+                        "video": video,
                         "form": form
                        }
             return render(request, 'recipe_details.html', context)
     else:
         context = {
                     "recipe": recipe,
+                    "ingredients": ingredients,
+                    "instructions": instructions,
                     "comments": comments,
+                    "video": video,
                     "form": form
                     }
         return render(request, 'recipe_details.html', context)

@@ -2,32 +2,75 @@
 {% load static %}
 
 {% block content %}
+
+    {% if video %}
+
+      <div class="row">
+        <video width="100%" height="auto" controls>
+          <source src="/{{ video.video }}" alt="" width="100%" type="video/mp4">
+          <source src="/{{ video.video }}" alt="" width="100%" type="video/ogg">
+        </video>
+      </div>
+
+    {% else %}
+
+      <div class="row">
+        <video width="100%" height="auto" controls>
+          <source src="#" alt="" width="100%" type="video/mp4">
+          <source src="#" alt="" width="100%" type="video/ogg">
+        </video>
+      </div>
+
+    {% endif %}
+
 <h1 id="title-h5">{{ recipe.title }}</h1>
-<div class="row">
-    <div class="col-md-8 video-wrapper">
-      <video width="100%" height="auto" controls>
-        <source src="/{{ project.video.url }}" alt="" width="100%" type="video/mp4">
-        <source src="/{{ project.video.url }}" alt="" width="100%" type="video/ogg">
-      </video>
-      <!---
-        <img src="/{{ project.image.url }}" alt="" width="100%">
-      --->
-    </div>
-    <div class="col-md-4 content-section">
-        <h5>Description:</h5>
-        <p>{{ recipe.description }}</p>
-        <br>
-        <h5>Items used:</h5>
-        <p>{{ recipe.items }}</p>
-    </div>
+<h5 class="post-author">post by {{ recipe.user.first_name }} {{ recipe.user.last_name }}</h5>
+
+<!--- Text Content --->
+<div class="row" id="content-section">
+      <h5 style="margin-top: 20px; margin-bottom: 10px">Overview</h5>
+      <p class="recipe-overview">{{recipe.description}}</p>
+
+      <hr style="width: 100%;">
+      <h5 style="margin-top: 20px; margin-bottom: 10px">Ingredients</h5>
+
+      <ul class="recipe-ingredients">
+        {% for ingredient in ingredients %}
+          <a class="ingredient-wrapper" href="#">
+            <img src="/{{ ingredient.ingredient_image }}" alt="">
+            <p class="ingredient-name">{{ingredient.ingredient_name}}</p>
+          </a>
+        {% endfor %}
+      </ul>
+
+      <hr style="width: 100%;">
+      <h5 style="margin-top: 20px; margin-bottom: 10px">Items & Measurements</h5>
+      <ul class="items-used">
+        {% for ingredient in ingredients %}
+          <li class="recipe-item">{{ingredient.ingredient_direction}}</li>
+        {% endfor %}
+      </ul>
+
+      <hr style="width: 100%;">
+      <h5 style="margin-top: 20px; margin-bottom: 10px">Instructions</h5>
+      <div class="recipe-instruction">
+        {% for instruction in instructions %}
+          <p><span style="font-weight: bold">{{instruction.instruction_id}}. </span>  {{ instruction.instruction }}</p>
+        {% endfor %}
+      </div>
+
+      <hr style="width: 100%;">
 </div>
+
+<!--- End Text Content --->
+
 
 <h3 class="comment-title">COMMENTS</h3>
 <div class="comment-section">
 
   <div class="form_wrapper edit-page">
 
-    <form action="/projects/{{ project.pk }}/" method="post">
+    <form action="/recipe/{{ recipe.pk }}/" method="post">
         {% csrf_token %}
         {% for field in form.visible_fields %}
 
@@ -55,10 +98,10 @@
   {% for comment in comments %}
   <div class="comments-card">
     <p class="date-p">
-        On {{comment.created_on.date }}&nbsp;
+        {{comment.created_on.date }}&nbsp;
     </p>
+    <p class="author-p">~ {{ comment.author }} </p>
     <p class="body-p">{{ comment.body }}</p>
-    <p class="author-p">- {{ comment.author }} </p>
 
   </div>
   {% endfor %}
@@ -128,8 +171,8 @@
     color: #fff;
     text-align: center;
     font-size: 16px;
-    padding: 20px;
-    width: 200px;
+    width: 100px;
+    height: 50px;
     transition: all 0.5s;
     cursor: pointer;
     margin: 10px;
@@ -151,12 +194,12 @@
     top: 0;
     right: -20px;
     transition:0.3s;
-    color: #fff;
+    color: #2976f5;
   }
 
   .btn:hover span {
     padding-right: 25px;
-    color: #fff;
+    color: #2976f5;
   }
 
   .btn:hover span:after {
@@ -164,48 +207,6 @@
     right: 0;
   }
 
-  .comments-card {
-    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
-    transition: 0.3s;
-    border-radius: 5px;
-    margin: 10px;
-    margin-bottom: 30px;
-    padding: 10px;
-
-    width: calc(200px + 40vw);
-
-    color: #fff;
-  }
-
-  .author-p {
-    color: #4C4CFF;
-    text-transform: capitalize;
-    letter-spacing: 0.05em;
-  }
-
-  .body-p {
-    font-weight: lighter;
-    letter-spacing: 0.05em;
-  }
-
-  .date-p {
-    font-weight: lighter;
-    font-size: 12px;
-    color: #ccc;
-    letter-spacing: 0.05em;
-  }
-
-  .content-section p{
-    font-weight: lighter;
-    letter-spacing: 0.02em;
-  }
-
-  .content-section h5{
-    font-weight: bold;
-    font-size: 1.2em;
-    letter-spacing: 0.03em;
-    color: #2976f5;
-  }
 
   #title-h5 {
     text-transform: uppercase;
