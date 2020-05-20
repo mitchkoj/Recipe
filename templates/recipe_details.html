@@ -3,12 +3,12 @@
 
 {% block content %}
 
-    {% if video %}
+    {% if recipe.video %}
 
       <div class="row">
         <video width="100%" height="auto" controls>
-          <source src="/{{ video.video }}" alt="" width="100%" type="video/mp4">
-          <source src="/{{ video.video }}" alt="" width="100%" type="video/ogg">
+          <source src="/{{ recipe.video }}" alt="" width="100%" type="video/mp4">
+          <source src="/{{ recipe.video }}" alt="" width="100%" type="video/ogg">
         </video>
       </div>
 
@@ -36,7 +36,7 @@
 
       <ul class="recipe-ingredients">
         {% for ingredient in ingredients %}
-          <a class="ingredient-wrapper" href="#">
+          <a class="ingredient-wrapper" href="{% url 'ingredient_detail' recipe.recipe_id ingredient.ingredient_id %}">
             <img src="/{{ ingredient.ingredient_image }}" alt="">
             <p class="ingredient-name">{{ingredient.ingredient_name}}</p>
           </a>
@@ -55,7 +55,7 @@
       <h5 style="margin-top: 20px; margin-bottom: 10px">Instructions</h5>
       <div class="recipe-instruction">
         {% for instruction in instructions %}
-          <p><span style="font-weight: bold">{{instruction.instruction_id}}. </span>  {{ instruction.instruction }}</p>
+          <p><span style="font-weight: bold">{{ forloop.counter }}. </span>  {{ instruction.instruction }}</p>
         {% endfor %}
       </div>
 

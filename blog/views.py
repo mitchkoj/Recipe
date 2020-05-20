@@ -1,8 +1,8 @@
 from django.shortcuts import render
 
 from .forms import CommentForm
-from .models import Comment, Recipe, IngredientImage, Ingredient
-from .models import RecipeVideo, RecipeInstructions
+from .models import Comment, Recipe, IngredientImage
+from .models import RecipeInstructions, Ingredient
 
 
 def render_index(request):
@@ -35,7 +35,6 @@ def recipe_detail(request, pk):
     instructions = RecipeInstructions.objects.filter(recipe=recipe)
     #images = IngredientImage.objects.filter(ingredient=ingredient)
     comments = Comment.objects.filter(recipe=recipe)
-    video = RecipeVideo.objects.filter(recipe=recipe)[0]
 
     form = CommentForm()
     if request.method == 'POST':
@@ -54,7 +53,6 @@ def recipe_detail(request, pk):
                         "ingredients": ingredients,
                         "instructions": instructions,
                         "comments": comments,
-                        "video": video,
                         "form": form
                         }
             return render(request, 'recipe_details.html', context)
@@ -65,7 +63,6 @@ def recipe_detail(request, pk):
                         "ingredients": ingredients,
                         "instructions": instructions,
                         "comments": comments,
-                        "video": video,
                         "form": form
                        }
             return render(request, 'recipe_details.html', context)
@@ -75,7 +72,35 @@ def recipe_detail(request, pk):
                     "ingredients": ingredients,
                     "instructions": instructions,
                     "comments": comments,
-                    "video": video,
                     "form": form
                     }
         return render(request, 'recipe_details.html', context)
+
+
+def ingredient_detail(request, recipe_pk, pk):
+    """
+        An detail view that shows more information
+        on a particular topic.
+
+        takes a project id.
+    """
+
+    # get the project with primary key
+    print(f"\n\n Getting - Recipe \n\n")
+    recipe = Recipe.objects.get(pk=recipe_pk)
+
+    print(f"\n\n Getting - Ingredient \n\n")
+    ingredient = Ingredient.objects.get(ingredient_id=pk)
+
+    print(f"\n\n Getting - Images \n\n")
+    images = IngredientImage.objects.filter(ingredient=ingredient)
+
+    print(f"\n\n {ingredient} \n\n")
+    #print(f"\n\n {images} \n\n")
+
+    context = {
+                "recipe": recipe,
+                "ingredient": ingredient,
+                "images": images,
+              }
+    return render(request, 'ingredient_page.html', context)

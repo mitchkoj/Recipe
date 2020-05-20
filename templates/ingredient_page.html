@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+{% load static %}
+
+<!--- NAVIGATION SETTINGS --->
+{% block nav-bar %}
+<div class="site-nav"> <!--- 2-rows-1-column --->
+
+  <!--- LOGO SECTION --->
+  <div class="site-logo-wrapper" >
+    <a class="back-home-link" href="{% url 'gate_keeper' %}">
+      <img class="logo-image" src="{% static 'images/olive_oil_1.jpg' %}" alt="foodinc logo" />
+    </a>
+  </div> <!--- row-1 --->
+  <!--- END LOGO SECTION --->
+
+  <!--- NAVIGATION MENU SECTION --->
+  <div class="site-menu-wrapper">
+    <a class="back-btn" href="{% url 'recipe_detail' recipe.recipe_id %}">
+      <img src="{% static 'images/back-btn-3.png' %}" alt="back button">
+      <span></span>
+    </a>
+    <div class="">
+
+    </div>
+  </div>
+  <!--- END NAVIGATION MENU SECTION --->
+
+</div>
+{% endblock nav-bar %}
+ <!--- END NAVIGATION SETTINGS --->
+
+{% block content %}
+{% if ingredient.ingredient_video %}
+
+  <div class="row">
+    <video width="100%" height="auto" controls>
+      <source src="/{{ ingredient.ingredient_video }}" alt="" width="100%" type="video/mp4">
+      <source src="/{{ ingredient.ingredient_video }}" alt="" width="100%" type="video/ogg">
+    </video>
+  </div>
+
+{% else %}
+
+  <div class="row">
+    <video width="100%" height="auto" controls>
+      <source src="#" alt="" width="100%" type="video/mp4">
+      <source src="#" alt="" width="100%" type="video/ogg">
+    </video>
+  </div>
+
+{% endif %}
+
+<!--- Text Content --->
+<div class="row" id="ingredient-details">
+      <h4 class="ingredient-name">{{ingredient.ingredient_name}}</h4>
+      <p class="purchase-store">purchase store: <span>{{ingredient.purchase_store}}</span></p>
+      <p class="purchase-location">store location: <span>{{ingredient.purchase_location}}</span></p>
+      <p class="ingredient-pricing">item pricing: <span style="color: #007bff">{{ingredient.pricing}}</span> </p>
+      <p class="ingredient-cost">item cost: <span style="color: #3d993d">{{ingredient.cost}}</span></p>
+</div>
+<hr style="width: 100%;">
+<!--- End Text Content --->
+
+<!--- Image Gallery --->
+
+<!-- Grid row -->
+<div class="gallery" id="gallery">
+
+  {% for image in images %}
+  <!-- Grid column -->
+  <div class="mb-3 pics animation all 2">
+    <img class="img-fluid" src="/{{image.image}}" alt="ingredient image">
+  </div>
+  <!-- Grid column -->
+  {% endfor %}
+
+</div>
+<!-- Grid row -->
+
+<!--- End Image Gallery --->
+
+{% endblock %}
