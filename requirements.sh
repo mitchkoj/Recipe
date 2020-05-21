@@ -32,6 +32,15 @@ echo -e "${LINE_COUNT//?/$LINE_SEPERATOR}\n${LINE_COUNT//?/$LINE_SEPERATOR}"
 echo "\n"
 
 # set neccesary variables in vault.py
+#---- EMAIL_HOST ----#
+echo -e "${BLUE}setting${NOCOLOR} ${ORANGE}[EMAIL_HOST_USER]${NOCOLOR} ${BLUE}variable in${NOCOLOR} ${GREEN}vault.py${NOCOLOR}"
+echo -e "EMAIL_HOST = None" >> recipes/vault.py
+echo -e "${ORANGE}[EMAIL_HOST_USER]${NOCOLOR} ${BLUE}variable set${NOCOLOR}"
+echo "\n"
+echo -e "${LINE_COUNT//?/$LINE_SEPERATOR}\n${LINE_COUNT//?/$LINE_SEPERATOR}"
+echo "\n"
+
+#---- EMAIL_HOST_USER ----#
 echo -e "${BLUE}setting${NOCOLOR} ${ORANGE}[EMAIL_HOST_USER]${NOCOLOR} ${BLUE}variable in${NOCOLOR} ${GREEN}vault.py${NOCOLOR}"
 echo -e "EMAIL_HOST_USER = None" >> recipes/vault.py
 echo -e "${ORANGE}[EMAIL_HOST_USER]${NOCOLOR} ${BLUE}variable set${NOCOLOR}"
@@ -39,13 +48,23 @@ echo "\n"
 echo -e "${LINE_COUNT//?/$LINE_SEPERATOR}\n${LINE_COUNT//?/$LINE_SEPERATOR}"
 echo "\n"
 
+#---- EMAIL_HOST_PASSWORD ----#
 echo -e "${BLUE}setting${NOCOLOR} ${ORANGE}[EMAIL_HOST_PASSWORD]${NOCOLOR} ${BLUE}variable in${NOCOLOR} ${GREEN}vault.py${NOCOLOR}"
 echo -e "EMAIL_HOST_PASSWORD = None" >> recipes/vault.py
 echo -e "${ORANGE}[EMAIL_HOST_PASSWORD]${NOCOLOR} ${BLUE}variable set${NOCOLOR}"
 echo "\n"
 
+#---- DEFAULT_FROM_EMAIL ----#
 echo -e "${BLUE}setting${NOCOLOR} ${ORANGE}[DEFAULT_FROM_EMAIL]${NOCOLOR} ${BLUE}variable in${NOCOLOR} ${GREEN}vault.py${NOCOLOR}"
 echo -e "DEFAULT_FROM_EMAIL = None" >> recipes/vault.py
+echo -e "${ORANGE}[DEFAULT_FROM_EMAIL]${NOCOLOR} ${BLUE}variable set${NOCOLOR}"
+echo "\n"
+echo -e "${LINE_COUNT//?/$LINE_SEPERATOR}\n${LINE_COUNT//?/$LINE_SEPERATOR}"
+echo "\n"
+
+#---- DATABASE_PASSWORD ----#
+echo -e "${BLUE}setting${NOCOLOR} ${ORANGE}[DEFAULT_FROM_EMAIL]${NOCOLOR} ${BLUE}variable in${NOCOLOR} ${GREEN}vault.py${NOCOLOR}"
+echo -e "DATABASE_PASSWORD = None" >> recipes/vault.py
 echo -e "${ORANGE}[DEFAULT_FROM_EMAIL]${NOCOLOR} ${BLUE}variable set${NOCOLOR}"
 echo "\n"
 echo -e "${LINE_COUNT//?/$LINE_SEPERATOR}\n${LINE_COUNT//?/$LINE_SEPERATOR}"
@@ -125,6 +144,9 @@ echo -e "venv/" >> .gitignore
 echo -e "__pycache__" >> .gitignore
 echo -e ".DS_Store" >> .gitignore
 echo -e "static/admin" >> .gitignore
+echo -e "session_security/" >> .gitignore
+echo -e "cloud_sql_proxy" >> .gitignore
+echo -e ".gcloudignore" >> .gitignore
 echo -e "${GREEN}.gitignore${NOCOLOR} ${BLUE}file created${NOCOLOR}"
 echo "\n"
 echo -e "${LINE_COUNT//?/$LINE_SEPERATOR}\n${LINE_COUNT//?/$LINE_SEPERATOR}"

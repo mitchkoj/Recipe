@@ -37,9 +37,13 @@ except:
 SECRET_KEY = vault.SECRET_KEY
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
+SECURE_SSL_REDIRECT = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1','https://recipes-252208.wl.r.appspot.com',
+                 'recipes-252208.wl.r.appspot.com', 'recipe.mitchkoj.com',
+                 'recipes.mitchkoj.com', 'www.recipes.mitchkoj.com',
+                 'www.recipe.mitchkoj.com', 'mitchkoj.com', ]
 
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 EMAIL_HOST = vault.EMAIL_HOST
@@ -97,13 +101,42 @@ WSGI_APPLICATION = 'recipes.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
-}
+#DATABASES = {
+#    'default': {
+#        'ENGINE': 'django.db.backends.sqlite3',
+#        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+#    }
+#}
 
+
+#________________GOOGLE CLOUD SQL SETUP___________________#
+if os.getenv('GAE_APPLICATION', None):
+    # Running on production App Engine, so connect to Google Cloud SQL using
+    # the unix socket at /cloudsql/<your-cloudsql-connection string>
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+            'HOST': '/cloudsql/recipes-252208:us-west2:recipe-foodinc',
+            'USER': 'info@mitchkoj.com',
+            'PASSWORD': vault.DATABASE_PASSWORD,
+            'NAME': 'recipe-foodinc-db',
+        }
+    }
+else:
+    # Running locally so connect to either a local MySQL instance or connect
+    # to Cloud SQL via the proxy.  To start the proxy via command line:
+    #    $ cloud_sql_proxy -instances=[INSTANCE_CONNECTION_NAME]=tcp:3306
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+            'HOST': '127.0.0.1',
+            'PORT': '3306',
+            'NAME': 'recipe-foodinc-db',
+            'USER': 'info@mitchkoj.com',
+            'PASSWORD': vault.DATABASE_PASSWORD,
+        }
+    }
+#__________________END SETUP_____________________________#
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
@@ -141,11 +174,11 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
-STATIC_URL = '/static/'
+STATIC_URL = 'https://storage.googleapis.com/recipe_foodidinc_static_files/static/'#'/static/'
 
-STATIC_ROOT = ''#'static'
+STATIC_ROOT = '' #'static'
 
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
+#STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 
 
 AUTH_USER_MODEL = 'account.CustomUser'

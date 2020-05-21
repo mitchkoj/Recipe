@@ -2,7 +2,9 @@ venv/
 migrations/
 __pycache__
 db.sqlite3
+cloud_sql_proxy
 vault.py
 admin/
 session_security/
 .DS_Store
+.gcloudignore
